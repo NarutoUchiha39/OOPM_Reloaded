@@ -1,0 +1,19 @@
+1) Why is Main method static?
+Ans) Since Main is the first method to be executed when the program is to be run, it must be static. Static variable can be accessed without creating objects and we don't have time to create an object so main is static
+2) We cant use the non static methods inside static methods as static methods are not dependend on objects and non static methods depend on objects
+3) We can use this inside static lock as this specfies objects and static methods are not object dependent
+4) Static blocks are run only once while the first object is created. After that it doest run
+5) To use static on clas we must make sure that the outer class is't static only the inner class can be static. This is because the outer class isn't dependent on any other class so outer class cant be static. A nested class can be made static since it will by default depend on outer class so static will actually make it independent of the outer class
+eg:
+class Main //cant be static
+{
+    static class Main2
+    {
+
+    }
+}
+6) Static Variables are resolved during compile time since they are not dependent on objects
+7) Whenever we print an object the JVM searches for internal toString Method and if its not there it will go to the default toString method of Object class that prints class name followed by @ and then the hashcode of the class
+8) In System.out.prinln out is a public static final reference of the printstream class. printsream clas then contains the method println so we use out.println
+eg public static final PrintStream out = NULL;
+In the above declaration, when we declare the reference variabl as static we dont need to create its object to run it
