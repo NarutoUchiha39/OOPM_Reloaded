@@ -1,0 +1,221 @@
+*) There are 8 types of basic data types in java:
+
+*) What are wrapper classes an why are the used:
+Ans) wrapper classes are those classes that can convert primitive data type to Objects. Primitive data types are automatically converted to objects while known as autoboxing while Objects cant by defalult be converted to default but we can do it with some methods like Integer.intValue()
+conversion of objects to primitive is called unboxing 
+
+
+1) Why is Main method static?
+Ans) Since Main is the first method to be executed when the program is to be run, it must be static. Static variable can be accessed without creating objects and we don't have time to create an object so main is static
+2) We cant use the non static methods inside static methods as static methods are not dependend on objects and non static methods depend on objects
+3) We can use this inside static lock as this specfies objects and static methods are not object dependent
+4) Static blocks are run only once while the first object is created. After that it doest run
+5) To use static on clas we must make sure that the outer class is't static only the inner class can be static. This is because the outer class isn't dependent on any other class so outer class cant be static. A nested class can be made static since it will by default depend on outer class so static will actually make it independent of the outer class
+eg:
+class Main //cant be static
+{
+    static class Main2
+    {
+
+    }
+}
+6) Static Variables are resolved during compile time since they are not dependent on objects
+7) Whenever we print an object the JVM searches for internal toString Method and if its not there it will go to the default toString method of Object class that prints class name followed by @ and then the hashcode of the class
+8) In System.out.prinln out is a public static final reference of the printstream class. printsream clas then contains the method println so we use out.println
+eg public static final PrintStream out = NULL;
+In the above declaration, when we declare the reference variabl as static we dont need to create its object to run it
+
+9) Singleton Class:
+
+class singleton
+{
+    private static singleton instance;
+    int num;
+    private singleton(int num){this.num=num;}
+    public static singleton Getinstance(int num)
+    {
+        if(instance == null)
+        {
+            instance =  new singleton(num);
+            return instance;
+            
+        }
+        else{return instance;}
+    }
+}
+public class Main
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Demostrate singleton class. Constructor private since no one should be able to acccess it.You can create only one instance of this class. It checks if your reference in the class is null or not. if its null it allows you to create an object(null means no object was created). If its not null then it simply returns the instance");
+		singleton instance = singleton.Getinstance(23);
+		System.out.println(instance.num);
+		singleton instance2 = singleton.Getinstance(36);
+		System.out.println(instance2.num);
+		// Num value doesnt change since object is created only once
+	}
+}
+10) If we create a user defined constructor then we also need to make a default constructor too. Since JVM will no longer use the internal default constructor
+11) When we use the child class construcor and dont initialize it with super, the efault constructor of the parent class gets called
+eg:
+class parent
+{
+    int num;
+    parent(){this.num = 23;}
+}
+class child extends parent
+{
+    int num2;
+    child(int num2)
+    {
+        // default construcor of parent is called andnum is set to 23. Now it can be accessed by child class's objects
+        this.num = num2;
+    }
+}
+
+12) Use super to call parentclass constructor with matching arguments
+class parent
+{
+    int num;
+    parent(int num){this.num = num;}
+}
+class child extends parent
+{
+    int num2;
+    child(int num,int num2)
+    {
+        super(num);
+        this.num = num2;
+    }
+}
+
+We can create a reference of parent class to a child class but the vice versa isnt true. This is because if we try to reference a child to a parent, some Variables of the child class might not get initialized since parent class has no idea about child class.
+
+eg: Parent_class obj = new chid_class();is valid
+but chid_class obj = new Parent_class() isn't valid
+
+13) All classes inherit from Object class. if we use super in parent  class wont get error since it refers to Object class
+
+14) In case of multi-level inheritance Super refers to class directly above it
+*) Super can also be usd as this keyword. If we want to explicitly refer to parent class variables then the super keyword is used
+15) Any class extending the parent class must also pass all the variables needed for the parent class constructor. Also in child class constructor super must be initialized first followed by child class variables or you will get error.
+
+eg:
+class parent
+{
+    int num;
+    parent(int num){this.num = num;}
+}
+class child extends parent
+{
+    int num2;
+    child(int num,int num2)
+    {
+        super(num);
+        this.num = num2;
+        System.out.prinln(super.num);//Super.var is useful when we both the prent and child class variables have same nae and we explicitly wanna use parent 
+                                    //class variable
+    }
+}
+
+15) Types of inheritance:
+1) Single Inheritance 
+2) Multi-level inheritance(two or more classes inheriting from on main class)
+3) Multiple inheritance(one class inheriting from more than 1 class. Creates ambiguity if parents have same variables hence not used in java. Can be used in interfaces)
+4) Hybrid Inheritance: Inheritance involving  a combination of single , multi-level,multiple inheritance
+
+16) Poly-morphism: Manty ways to represent a single function
+17) Types of Poly-morphism: a) run time polymorphism
+b) Compile time poly morphism// Compiler decides at ru time which method to be used
+
+Compile time polymorphism is aceived by method overloading and operator overloading. operator overloading is done by JVM like + is used for concatination and addition.User defined operator overloadingisnt allowed
+
+Method overloading involves having functions with same name and changing the return type or the order of arguments
+eg:
+class Test
+{
+    int sum(int a,int b,int c)// Will be called when three numbers are passed
+    {
+        return a+b+c;
+    }
+
+    double sum(int a,double b,int c)
+    {
+        return a+b+c
+    }
+
+    void sum(int a,int b)
+    {
+        System.out.prinln(a+b);
+        return;
+    }
+
+    void sum(int b,int c)// Will give error
+    {System.out.prinln(b+c)}
+
+    void sum(String a, int b)
+    {
+        System.out.prinln(Integer.parseInt(a)+b);
+    }
+    void sum(int b, String a)// change of order of arguments
+    {
+        System.out.prinln(Integer.parseInt(a)+b);
+    }
+}
+*) Constructor overloading also falls under compile time polymorphism
+*) Run time polymorphism: When a parent class and the child class have the same methods and the reference variable is of parent class type then JVM decides which method to run at time
+
+REMEMBER WHICH AN OBJECT HAS ACCESS TO WICH METHOD DEPENDS ON THE REFERENCE VARIABLE BUT WHAT ETHOD IT WILL WILL RUN DPENDS ON OBJECT
+
+eg:
+class Test
+{
+    int sum(int a,int b,int c)// Will be called when three numbers are passed
+    {
+        return a+b+c;
+    }
+}
+clas test2 extends Test
+{
+    int sum(int a,int b,int c)// Will be called when three numbers are passed
+    {
+        return a+b-c;
+    }
+}
+determines which method can be accessed         determines which one of the two to run at runtime
+Test obj                                      = new test2();
+obj.sum(1,2,3);// Object class method is run
+Dynamic Method Dispatch
+The method by which JVM decides which method to run at run time during run time polymorphism is called dynamic method dispatch 
+
+18) Final and static methods can be inherited but not overriden
+19) Final Variable's value cant be changed
+20) Early Binding and Late Binding: Early Binding is used when a variable is declared is Final since the value of the final variable cant change JVM directly converts final methods to byte code at compile time since its value can't change. Final classes can't be inherited 
+
+21) Abstraction Vs Encapsulation:
+ans) Abstraction bascically hides unecessary details of implementation and provides us with some external methods which we can use
+Encapsulation on the other hand is more concerned about the implementation of the method and wrapping up the code in a single unit to protect it from outside world. Abstraction Provides us with methods of a class(like add for vectors) while Encapsulation is concerned about how the add is implemented
+*) Abstraction solves design level issues while Encapsulation solves implementation level issues
+
+22) Abstraction:
+*) We cant make any Abstraction construcor. 
+*) We cant make any Abstract static methods since Abstract methods are meant to be overriden and we cant override static method
+*) We can make any final method in Abstract class same reason as above
+
+if one abstract class extends another abstract class then the abstract class doesn't need to implement all the methods of the inherited abstract class but any class inheriting the second abstract class will need to override the methods in both the class
+
+We cant make objects of abstract classes but we can create references like normal run time polymorphism.
+
+interfaces define what a class does not how it does it
+
+Differences between abstract class and interfaces
+1) Abstract classes can have normal method implementation while interfaces have all the methods as abstract
+2) All the variables in interfaces are final and static by default but abstract class can have all sorts of different variables
+3) One class only extend one abstract class whereas a class can impliment multiple interfaces
+4) Abstract class can have constructor while an interface cannot
+5) An interface cant provide implementation of abstract class while abstract class can provide implementation of an interface
+
+We can also create references of interface like abstract classes
+Since Java 8 interface can also have default methods. Default methods and static methods are the only way by which we can provide body to any method inside interface. The default methods were added so that more functionalities can be added to code without breaking the exsisting code. If we add any new method to interface then it will be needed to implemented to all child classes that implement it. If the method is default then method has body and so we dont need to override it so no error is given if we dont override default methods
+
+
