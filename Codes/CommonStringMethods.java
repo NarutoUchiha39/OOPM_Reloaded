@@ -1,3 +1,5 @@
+package Codes;
+
 import java.lang.String;
 public class CommonStringMethods 
 {
